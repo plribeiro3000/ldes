@@ -1,0 +1,50 @@
+#!/bin/sh
+
+Main() {
+   echo "Linux Dev Environment Setup"
+   echo "------------------------------------------"
+   echo "Options:"
+   echo
+   echo "1. Install Ruby Dev Enviroment on KDE"
+   echo "0. Exit"
+   echo
+   echo -n "Choose an option:"
+   read opcao
+   case $opcao in
+      1) RubyKDE ;;
+      0) exit ;;
+      *) "Option unknown" ; echo ; Main ;;
+   esac
+}
+
+RubyKDE(){
+  add_repos
+}
+
+add_repos(){
+  repos="\n
+  #Backports\n
+  deb http://backports.debian.org/debian-backports squeeze-backports main\n
+  \n
+  #Debian-Multimidia\n
+  deb http://www.debian-multimedia.org squeeze main non-free\n
+  \n
+  #Dotdeb\n
+  deb http://php53.dotdeb.org stable all\n
+  deb-src http://php53.dotdeb.org stable all\n
+  deb http://packages.dotdeb.org stable all\n
+  deb-src http://packages.dotdeb.org stable all\n
+  \n
+  #Opera\n
+  deb http://deb.opera.com/opera-beta/ squeeze non-free\n
+  \n
+  #Google\n
+  deb http://dl.google.com/linux/deb/ stable main non-free\n
+  deb http://dl.google.com/linux/talkplugin/deb/ stable main\n
+  \n
+  #Mozilla\n
+  deb http://mozilla.debian.net/ squeeze-backports iceweasel-release"
+  echo $repos >> /etc/apt/sources.list
+}
+
+Main

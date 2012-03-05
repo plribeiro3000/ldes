@@ -18,19 +18,27 @@ Main() {
 }
 
 RubyKDE(){
+  sudo apt-get install -y kde-full
   add_repos
   sudo apt-get update
   add_keys
   sudo apt-get update
+  sudo apt-get dist-upgrade
+  install_basic_pkgs
+  install_browsers
+  install_database
+  install_sunjava
+  install_git
+  install_nodejs
 }
 
 add_repos(){
-cat <<EOF >> /etc/apt/sources.list
+sudo cat <<EOF >> /etc/apt/sources.list
 
 #Backports
 deb http://backports.debian.org/debian-backports squeeze-backports main
 
-#Debian-Multimidia
+#Debian-Multimedia
 deb http://www.debian-multimedia.org squeeze main non-free
 
 #Dotdeb
@@ -60,4 +68,37 @@ add_keys(){
   wget -q -O - http://www.dotdeb.org/dotdeb.gpg | sudo apt-key add -
 }
 
-Main
+install_basic_pkgs(){
+  sudo apt-get install -y gcc make smplayer unrar amarok vim bash curl
+}
+
+install_browsers(){
+  sudo apt-get install -y opera google-chrome-unstable
+  sudo apt-get install -t squeeze-backports iceweasel
+}
+
+install_database(){
+  sudo apt-get install -y mysql-query-browser mysql-client mysql-server
+}
+
+install_sunjava(){
+  sudo apt-get install -y sun-java6*
+  sudo apt-get remove openjdk*
+  sudo update-java-alternatives -l
+  sudo update-java-alternatives -s java-6-sun
+}
+
+install_git(){
+  sudo apt-get install -y git-core git-flow qgit
+  wget https://raw.github.com/git/git/master/contrib/completion/git-completion.bash -O ~/.git-completion
+  echo "source ~/.git-completion" >> ~/.bashrc
+}
+
+install_nodejs(){
+  echo "deb http://ftp.us.debian.org/debian/ sid main" > tmp
+  sudo mv tmp /etc/apt/sources.list.d/sid.list
+  sudo apt-get update
+  sudo apt-get install -y nodejs
+  sudo rm /etc/apt/sources.list.d/sid.list
+  sudo apt-get update
+}

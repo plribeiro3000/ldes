@@ -1,20 +1,28 @@
 #!/bin/sh
 
 Main() {
-   echo "Linux Dev Environment Setup"
-   echo "------------------------------------------"
-   echo "Options:"
-   echo
-   echo "1. Install Ruby Dev Enviroment on KDE"
-   echo "0. Exit"
-   echo
-   echo -n "Choose an option:"
-   read option
-   case $option in
+  if [ "$env" = "" ]
+  then
+    echo "Linux Dev Environment Setup"
+    echo "------------------------------------------"
+    echo "Options:"
+    echo
+    echo "1. Install Ruby Dev Enviroment on KDE"
+    echo "0. Exit"
+    echo
+    echo -n "Choose an option:"
+    read option
+    case $option in
       1) RubyKDE ;;
       0) exit ;;
       *) "Option unknown" ; echo ; Main ;;
-   esac
+    esac
+  else
+    case $env in
+      ruby) RubyKDE ;;
+      *) echo "Environment unknown" ; exit ;;
+    esac
+  fi
 }
 
 RubyKDE(){
@@ -102,3 +110,24 @@ install_nodejs(){
   sudo rm /etc/apt/sources.list.d/sid.list
   sudo apt-get update
 }
+
+display_help(){
+  echo "help"
+}
+
+env=
+verbose=false
+default=false
+while [ $# -gt 0 ]
+do
+  case "$1" in
+    -e)	env="$2" ;;
+    -v)	verbose=true ;;
+    -d)	default=true ;;
+    -h)	display_help
+	exit;;
+  esac
+  shift
+done
+
+Main

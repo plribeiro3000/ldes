@@ -33,6 +33,7 @@ RubyKDE(){
   sudo apt-get update
   sudo apt-get dist-upgrade
   install_basic_pkgs
+  install_vim
   install_browsers
   install_database
   install_sunjava
@@ -77,7 +78,15 @@ add_keys(){
 }
 
 install_basic_pkgs(){
-  sudo apt-get install -y gcc make smplayer unrar amarok vim bash curl
+  sudo apt-get install -y gcc make smplayer unrar amarok bash curl
+}
+
+install_vim(){
+  sudo apt-get install -y vim exuberant-ctags ncurses-term
+  git clone git@github.com:plribeiro3000/vimfiles.git ~/.vim
+  cd ~/.vim
+  git submodule update --init
+  echo "source ~/.vim/vimrc" > ~/.vimrc
 }
 
 install_browsers(){

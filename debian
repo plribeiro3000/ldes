@@ -100,7 +100,7 @@ install_browsers(){
 }
 
 install_database(){
-  apt-get install -y mysql-query-browser mysql-client mysql-server libmysqlclient16 libmysqlclient-dev
+  apt-get install -y mysql-client mysql-server libmysqlclient18 libmysqlclient-dev mysql-workbench
 }
 
 install_sunjava(){

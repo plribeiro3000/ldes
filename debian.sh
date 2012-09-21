@@ -55,7 +55,7 @@ cat <<EOF >> /etc/apt/sources.list
 deb http://backports.debian.org/debian-backports squeeze-backports main
 
 #Debian-Multimedia
-deb http://www.debian-multimedia.org squeeze main non-free
+deb http://www.deb-multimedia.org squeeze main non-free
 
 #Dotdeb
 deb http://packages.dotdeb.org squeeze all
